@@ -177,7 +177,7 @@ describe GPGME::Crypto do
 
     it "will get signature elements if the encrypted thing was signed" do
       signatures = 0
-      GPGME::Crypto.new.decrypt(TEXT[:signed]) do |signature|
+      GPGME::Crypto.new.decrypt(TEXT[:encrypted_signed]) do |signature|
         assert_instance_of GPGME::Signature, signature
         signatures += 1
       end

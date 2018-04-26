@@ -408,7 +408,7 @@ TWl5uBcWluXyqRqnCV5uLA==
 -----END PGP MESSAGE-----
 RUBY
 
-signed_text = <<-RUBY
+encrypted_signed_text = <<-RUBY
 -----BEGIN PGP MESSAGE-----
 Version: GnuPG v1.4.11 (Darwin)
 
@@ -511,7 +511,7 @@ TEXT = {
   :encrypted        => encrypted_text.chomp,
   # Created with a temporary key that's been removed.
   :unavailable      => unavailable.chomp,
-  :signed           => signed_text.chomp,
+  :encrypted_signed => encrypted_signed_text.chomp,
   :sign             => sign.chomp,
   :passwored        => passwored.chomp,
   :expired_key_sign => signed_with_expired_key_text.chomp
