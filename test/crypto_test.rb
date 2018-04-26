@@ -184,6 +184,17 @@ describe GPGME::Crypto do
       assert_equal 1, signatures
     end
 
+    it "will get signature elements even if the thing was not encrypted" do
+      signatures = 0
+      assert_raises GPGME::Error::NoData do
+        GPGME::Crypto.new.decrypt(TEXT[:signed]) do |signature|
+          assert_instance_of GPGME::Signature, signature
+          signatures += 1
+        end
+      end
+      assert_equal 1, signatures
+    end
+
     it "writes to the output if passed" do
       buffer = GPGME::Data.new
       GPGME::Crypto.new.decrypt(TEXT[:encrypted], :output => buffer)

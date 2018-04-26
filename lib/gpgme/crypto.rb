@@ -135,6 +135,8 @@ module GPGME
     #
     # @param &block
     #   In the block all the signatures are yielded, so one could verify them.
+    #   Note that the block is also yielded, when there is no encrypted, but
+    #   only SIG_MODE_NORMAL-signed and thus gpg encoded plaintext content.
     #   See examples.
     #
     # @return [GPGME::Data] a {GPGME::Data} that can be read.
@@ -168,14 +170,19 @@ module GPGME
       cipher_data  = Data.new(cipher)
 
       GPGME::Ctx.new(options) do |ctx|
+        exception = nil
+
         begin
           ctx.decrypt_verify(cipher_data, plain_data)
         rescue GPGME::Error::UnsupportedAlgorithm => exc
           exc.algorithm = ctx.decrypt_result.unsupported_algorithm
-          raise exc
+          exception = exc
         rescue GPGME::Error::WrongKeyUsage => exc
           exc.key_usage = ctx.decrypt_result.wrong_key_usage
-          raise exc
+          exception = exc
+        rescue StandardError => exc
+          # save the exception for later and handle signatures of SIG_MODE_NORMAL content, if any
+          exception = exc
         end
 
         verify_result = ctx.verify_result
@@ -185,6 +192,7 @@ module GPGME
           end
         end
 
+        raise exception if !exception.nil?
       end
 
       plain_data.seek(0)

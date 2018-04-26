@@ -433,6 +433,27 @@ jVRh9AFdOceUv5zZJpiSYXYXyntWqSy4Q5zguQmzhE5Wu3mY9HYPcpAUHxbn
 -----END PGP MESSAGE-----
 RUBY
 
+# unencrypted, but signed
+signed_text = <<-RUBY
+-----BEGIN PGP MESSAGE-----
+
+owEBXAKj/ZANAwAIAR11Uad2k4tmAcsKYgBa4bBXYXNkCokCPgQAAQgAKBYhBN0j
+uEslXvjcWMC8Vh11Uad2k4tmBQJa4bBZChxtQGx1dG8uYXQACgkQHXVRp3aTi2YX
+1Q/8DScqqMNqPmBOpMNHnd6x0wtHipaCt2N144kb17rLyNshsvvbFBKwUYGvgmPY
+MyjIayXoFxpdo+n858PHQIltdyhwfL17TIYTiwWULUYsPnM+Y9sRMPvxLCFtNspj
+NXCPOwIj8C2iSG48qIqhin5KEGj9TfwBUYfjLdTLtMPD6MwPKnFw6VjD6O+cYbjC
+YeaZzVnvYghvxXXVSvDSrjZ1sO4DgwUDhm0RVO5qztQcWLtetJYyz3Of8Jrrejyk
+WCmSXGlvnsPwardhEr6ync+hiRMNm6In8jjv3YNLqN5lxUd/2/eiMA+bC15EX5g0
+TNoNrYigRsOlk8FH89vfsveCNQAJt4GR/YY+s4TOUuq0wo31CBsrrEuWxwDp2aWJ
+wH7wcq7g07WDKBfWZ1DEBDAa2ksu/kLdkyD9Cf7b7Jz/Fh2q0d41P2rJrJWZVGOL
+RmHWD27d95ykADZ/LFLsiNZnKDplBZN/RT2lW2a+agIZrtlYjYVacj1tWj6oJaK5
+x7s+gh4jffoUfUmO4l4fjD88e4xoJMbfUGmZ1IhBORYgVM8GNLzLcdUGwhkqIbYf
+4Rz3+NlIsM2HUiSvU86QNcEn8IQZ56vMTf1SXji11efMQaMbj7b2pA0E4PG9gZ8+
+uOCB7AR7esSObXnDol7k2cVhKMRRqDmNvXa8tMHxfn/HoqU=
+=N6xF
+-----END PGP MESSAGE-----
+RUBY
+
 signed_with_expired_key_text = <<-RUBY
 -----BEGIN PGP MESSAGE-----
 Version: GnuPG v1.4.11 (Darwin)
@@ -512,6 +533,7 @@ TEXT = {
   # Created with a temporary key that's been removed.
   :unavailable      => unavailable.chomp,
   :encrypted_signed => encrypted_signed_text.chomp,
+  :signed           => signed_text.chomp,
   :sign             => sign.chomp,
   :passwored        => passwored.chomp,
   :expired_key_sign => signed_with_expired_key_text.chomp
